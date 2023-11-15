@@ -27,18 +27,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.kaer.documentsapp.android.R
+import ru.kaer.documentsapp.authorizedZone.NotificationScreenViewModel
 import ru.kaer.documentsapp.authorizedZone.component.NoticeCard
 
 @Composable
-fun NotificationScreen() {
-    val list = listOf(
-        NoticeCard("Выписка по оценкам", "Справка готова"),
-
-        NoticeCard("Справка о доходах", "Справка готова"),
-
-        NoticeCard("Справка в ПФР", "Проблема оформления"),
-    )
+fun NotificationScreen(
+    viewModell: NotificationScreenViewModel = viewModel()
+) {
+    val state = viewModell.state
     Scaffold(
         containerColor = Color(0xFFCEEDDB),
     ) {
@@ -72,7 +70,7 @@ fun NotificationScreen() {
             Spacer(modifier = Modifier.statusBarsPadding())
 
 
-            list.forEach {
+            state.list.forEach {
                 NoticeCardComp(
                     title = it.title,
                     status = it.status,
@@ -115,7 +113,9 @@ fun NoticeCardComp(title: String, status: String, onClick: () -> Unit = {}){
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Box(modifier = Modifier.matchParentSize().padding(8.dp), contentAlignment = Alignment.CenterEnd){
+                Box(modifier = Modifier
+                    .matchParentSize()
+                    .padding(8.dp), contentAlignment = Alignment.CenterEnd){
                     Icon(
                         painter = painterResource(id = R.drawable.chevron_right),
                         contentDescription = "",

@@ -1,5 +1,6 @@
 package ru.kaer.documentsapp.authorization.data
 
+import ru.kaer.documentsapp.AppplicTable
 import ru.kaer.documentsapp.DocumentDatabase
 import ru.kaer.documentsapp.shared.model.Code
 import ru.kaer.documentsapp.shared.model.LoginType
@@ -10,6 +11,7 @@ class LoginDataRepositoryImpl(
     private val dbQuery = database.codeTableQueries
     private val tokenTable = database.tokenTableQueries
     private val fioTable = database.fioTableQueries
+    private val appTable = database.appplickTableQueries
     override var loginCode: Code?
         get() {
             return dbQuery.getCode().executeAsOneOrNull()?.let {
@@ -47,4 +49,18 @@ class LoginDataRepositoryImpl(
     override fun createCode(code: String) {
         loginCode = Code(code, LoginType.CODE)
     }
+
+    override fun createApplication(
+        fio: String,
+        kafedra: String,
+        kurs: String,
+        grupa: String,
+        title: String
+    ) {
+        appTable.setApp(fio, kafedra, kurs, grupa, "Справка готова", title)
+    }
+
+    override fun getApplications(): List<AppplicTable> =
+        appTable.getApp().executeAsList()
+
 }

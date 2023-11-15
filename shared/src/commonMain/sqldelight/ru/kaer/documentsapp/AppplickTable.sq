@@ -1,0 +1,16 @@
+CREATE TABLE AppplicTable (
+    fio TEXT NOT NULL,
+    kafedra TEXT NOT NULL,
+    kurs TEXT NOT NULL,
+    grupa TEXT NOT NULL,
+    status TEXT NOT NULL,
+    title TEXT NOT NULL
+);
+
+setApp:
+    INSERT OR REPLACE INTO AppplicTable(fio, kafedra, kurs, grupa, status, title) VALUES (
+    ?,?,?,?, ?, ?);
+
+
+getApp:
+SELECT * FROM AppplicTable;

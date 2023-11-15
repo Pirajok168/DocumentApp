@@ -26,6 +26,14 @@ class RegistrationApplicationViewModel(
     var registrationApplicationState by mutableStateOf(RegistrationApplicationState())
         private set
 
+    fun createApplication(title: String){
+        registrationApplicationState.run {
+            viewModelScope.launch(Dispatchers.IO) {
+                loginDataInteractor.createApplication(fio, kafedra, kurs, grupa, title)
+            }
+
+        }
+    }
 
     fun inputgrupa(value: String){
         updateWithMainFlow{

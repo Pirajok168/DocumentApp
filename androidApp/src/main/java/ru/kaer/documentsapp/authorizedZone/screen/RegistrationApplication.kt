@@ -138,7 +138,7 @@ fun RegistrationApplication(
             Spacer(modifier = Modifier.size(35.dp))
 
             Button(
-                onClick = {  },
+                onClick = { registrationApplicationViewModel.createApplication(title) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 49.dp),

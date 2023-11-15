@@ -1,5 +1,6 @@
 package ru.kaer.documentsapp.authorization.domain
 
+import ru.kaer.documentsapp.AppplicTable
 import ru.kaer.documentsapp.authorization.data.LoginDataRepository
 import ru.kaer.documentsapp.shared.model.Code
 
@@ -20,5 +21,9 @@ class LoginDataInteractorImpl(
     override fun registration(fio: String) = loginDataRepository.registration(fio)
 
     override fun createCode(code: String) = loginDataRepository.createCode(code)
+    override fun createApplication(fio: String, kafedra: String, kurs: String, grupa: String,  title: String)
+    = loginDataRepository.createApplication(fio, kafedra, kurs, grupa, title)
+
+    override fun getApplications(): List<AppplicTable> = loginDataRepository.getApplications()
 
 }
