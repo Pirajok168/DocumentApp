@@ -9,6 +9,7 @@ class LoginDataRepositoryImpl(
 ): LoginDataRepository {
     private val dbQuery = database.codeTableQueries
     private val tokenTable = database.tokenTableQueries
+    private val fioTable = database.fioTableQueries
     override var loginCode: Code?
         get() {
             return dbQuery.getCode().executeAsOneOrNull()?.let {
@@ -32,10 +33,14 @@ class LoginDataRepositoryImpl(
         }
         set(value) {}
 
+    override fun getFio(): String
+         = fioTable.getFio().executeAsOneOrNull().orEmpty()
+
     override fun isUserAuthorized(): Boolean =
         tokenTable.isUserAuthorized().executeAsOneOrNull() != null
 
-    override fun registration() {
+    override fun registration(fio: String) {
+        fioTable.setFio(fio)
         tokenTable.setAuthorized("123", "123")
     }
 

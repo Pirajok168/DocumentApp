@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -82,12 +83,14 @@ fun NotificationScreen() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoticeCardComp(title: String, status: String){
+fun NoticeCardComp(title: String, status: String, onClick: () -> Unit = {}){
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = Color.White),
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        onClick =onClick
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

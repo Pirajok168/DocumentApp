@@ -33,6 +33,7 @@ import ru.kaer.documentsapp.android.R
 import ru.kaer.documentsapp.authorizedZone.screen.ChooiseCatetoryScreen
 import ru.kaer.documentsapp.authorizedZone.screen.MainScreen
 import ru.kaer.documentsapp.authorizedZone.screen.NotificationScreen
+import ru.kaer.documentsapp.authorizedZone.screen.RegistrationApplication
 import ru.kaer.documentsapp.component.TabBarItem
 import ru.kaer.documentsapp.navigation.Screen
 
@@ -114,7 +115,16 @@ fun AuthorizedZone() {
                 arguments = listOf(navArgument("listType") { defaultValue = "" })
             ){ backStackEntry ->
                 val list = backStackEntry.arguments?.getString("listType")?.split("/") ?: emptyList()
-                ChooiseCatetoryScreen(list)
+                ChooiseCatetoryScreen(list){
+                    navController.navigate("${Screen.RegistrationApplication.name}?title=$it")
+                }
+            }
+
+            composable(
+                "${Screen.RegistrationApplication.name}?title={title}"
+            ){  backStackEntry ->
+                val title = backStackEntry.arguments?.getString("title") ?: ""
+                RegistrationApplication(title)
             }
 
             composable(Screen.Notice.name){

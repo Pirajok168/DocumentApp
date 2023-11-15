@@ -11,5 +11,7 @@ enum class Screen {
     Main,
     Notice,
     Profile,
-    ChooseCategory
+    ChooseCategory,
+
+    RegistrationApplication
 }

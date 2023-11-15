@@ -21,7 +21,7 @@ import ru.kaer.documentsapp.android.R
 
 
 @Composable
-fun ChooiseCatetoryScreen(list: List<String>){
+fun ChooiseCatetoryScreen(list: List<String>, onClick: (String) -> Unit){
     Scaffold(
         containerColor = Color(0xFFCEEDDB),
     ) {
@@ -61,6 +61,7 @@ fun ChooiseCatetoryScreen(list: List<String>){
                 NoticeCardComp(
                     title = it,
                     status = "Оформить",
+                    onClick = { onClick(it) }
                 )
                 Spacer(modifier = Modifier.size(15.dp))
             }

@@ -6,10 +6,11 @@ interface LoginDataRepository {
     var loginCode: Code?
     var accessToken: String?
     var refreshToken: String
+    fun getFio(): String
 
     fun isUserAuthorized(): Boolean
 
-    fun registration()
+    fun registration(fio: String)
 
     fun createCode(code: String)
 

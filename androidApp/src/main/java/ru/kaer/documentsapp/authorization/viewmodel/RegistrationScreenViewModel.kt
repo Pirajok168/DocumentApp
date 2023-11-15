@@ -34,7 +34,7 @@ class RegistrationScreenViewModel(
             }
             return
         }
-        loginDataInteractor.registration()
+        loginDataInteractor.registration(authState.fio)
         onSuccess()
     }
 

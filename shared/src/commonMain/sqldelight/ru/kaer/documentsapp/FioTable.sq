@@ -1,0 +1,11 @@
+CREATE TABLE FioTable (
+    fio TEXT NOT NULL
+);
+
+
+getFio:
+     SELECT * FROM FioTable;
+
+
+setFio:
+    INSERT OR REPLACE INTO FioTable (fio) VALUES (?);
