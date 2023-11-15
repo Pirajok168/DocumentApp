@@ -83,7 +83,7 @@ fun NotificationScreen() {
 }
 
 @Composable
-private fun NoticeCardComp(title: String, status: String){
+fun NoticeCardComp(title: String, status: String){
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = Color.White),
         modifier = Modifier.fillMaxWidth(),

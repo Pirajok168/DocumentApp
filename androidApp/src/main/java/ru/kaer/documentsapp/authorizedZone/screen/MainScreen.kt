@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,7 +32,9 @@ import ru.kaer.documentsapp.android.R
 import ru.kaer.documentsapp.authorizedZone.component.ReferenceCard
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    onClickReferenceCard: (List<String>) -> Unit
+) {
     val list = listOf(
         ReferenceCard(
             title = "Для студентов",
@@ -94,7 +97,10 @@ fun MainScreen() {
                 CardReference(
                     title = it.title,
                     icon = it.icon,
-                    description = it.descriptions.joinToString("\n")
+                    description = it.descriptions.joinToString("\n"),
+                    onClick = {
+                        onClickReferenceCard(it.descriptions)
+                    }
                 )
                 Spacer(modifier = Modifier.size(15.dp))
             }
@@ -103,16 +109,19 @@ fun MainScreen() {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardReference(
     title: String,
     @DrawableRes icon: Int,
-    description: String
+    description: String,
+    onClick: () -> Unit
 ) {
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = Color.White),
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp)
+        shape = RoundedCornerShape(8.dp),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier

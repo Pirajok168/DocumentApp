@@ -10,5 +10,6 @@ enum class Screen {
 
     Main,
     Notice,
-    Profile
+    Profile,
+    ChooseCategory
 }

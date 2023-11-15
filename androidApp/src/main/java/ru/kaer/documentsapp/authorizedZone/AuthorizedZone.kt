@@ -28,7 +28,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import ru.kaer.documentsapp.android.R
+import ru.kaer.documentsapp.authorizedZone.screen.ChooiseCatetoryScreen
 import ru.kaer.documentsapp.authorizedZone.screen.MainScreen
 import ru.kaer.documentsapp.authorizedZone.screen.NotificationScreen
 import ru.kaer.documentsapp.component.TabBarItem
@@ -102,8 +104,19 @@ fun AuthorizedZone() {
             modifier = Modifier.padding(it)
         ) {
             composable(Screen.Main.name){
-                MainScreen()
+                MainScreen(){
+                    navController.navigate("${Screen.ChooseCategory.name}?listType=${it.joinToString("/")}")
+                }
             }
+
+            composable(
+                "${Screen.ChooseCategory.name}?listType={listType}",
+                arguments = listOf(navArgument("listType") { defaultValue = "" })
+            ){ backStackEntry ->
+                val list = backStackEntry.arguments?.getString("listType")?.split("/") ?: emptyList()
+                ChooiseCatetoryScreen(list)
+            }
+
             composable(Screen.Notice.name){
                 NotificationScreen()
             }
