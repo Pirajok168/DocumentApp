@@ -78,8 +78,8 @@ fun InputCodeScreen(
 
 
     Scaffold(
-        contentWindowInsets =
-        WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal),
+//        contentWindowInsets =
+//        WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal),
         containerColor = Color(0xFFCEEDDB)
     ) {
         Column(

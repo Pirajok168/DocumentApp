@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ru.kaer.documentsapp.authorization.viewmodel.SplashScreenViewModel
+import ru.kaer.documentsapp.authorizedZone.AuthorizedZone
 import ru.kaer.documentsapp.navigation.Screen
 
 @Composable
@@ -82,7 +83,8 @@ fun AuthorizationFlow(
         }
 
         composable(Screen.Zone.name){
-            Text("qweqwjeljqwlej")
+
+            AuthorizedZone()
         }
     }
 }

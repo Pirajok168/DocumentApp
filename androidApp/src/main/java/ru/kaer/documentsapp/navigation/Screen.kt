@@ -6,5 +6,9 @@ enum class Screen {
     InputCode,
     Registration,
     CreateInputCode,
-    Zone
+    Zone,
+
+    Main,
+    Notice,
+    Profile
 }
