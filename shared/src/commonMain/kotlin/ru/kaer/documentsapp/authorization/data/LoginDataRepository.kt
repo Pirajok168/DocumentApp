@@ -9,4 +9,8 @@ interface LoginDataRepository {
 
     fun isUserAuthorized(): Boolean
 
+    fun registration()
+
+    fun createCode(code: String)
+
 }

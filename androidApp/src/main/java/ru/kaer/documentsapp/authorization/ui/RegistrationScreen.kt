@@ -40,7 +40,8 @@ import ru.kaer.documentsapp.authorization.viewmodel.RegistrationScreenViewModel
 
 @Composable
 fun RegistrationScreen(
-    viewModel: RegistrationScreenViewModel = viewModel()
+    viewModel: RegistrationScreenViewModel = viewModel(),
+    onSuccess: () -> Unit
 ) {
     val state = viewModel.authState
     Scaffold(
@@ -179,7 +180,7 @@ fun RegistrationScreen(
             Spacer(modifier = Modifier.size(35.dp))
 
             Button(
-                onClick = { viewModel.onRegistration() },
+                onClick = { viewModel.onRegistration(onSuccess) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 49.dp),

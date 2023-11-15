@@ -8,4 +8,10 @@ interface LoginDataInteractor {
     var refreshToken: String
 
     fun isUserAuthorized(): Boolean
+
+    fun checkCode(code: String): Boolean
+
+    fun registration()
+
+    fun createCode(code: String)
 }

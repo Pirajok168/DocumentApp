@@ -60,23 +60,20 @@ import androidx.fragment.app.FragmentActivity
 import ru.kaer.documentsapp.android.R
 import ru.kaer.documentsapp.authorization.viewmodel.InputCodeScreenViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.delay
+import ru.kaer.documentsapp.authorization.viewmodel.CreateInputCodeScreenViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun InputCodeScreen(
-    viewModel: InputCodeScreenViewModel = viewModel(),
+fun CreateInputCodeScreen(
+    viewModel: CreateInputCodeScreenViewModel = viewModel(),
     onSuccess: () -> Unit
 ) {
     val state = viewModel.inputCodeState
-    LaunchedEffect(key1 = state.error, block = {
-        if (state.error){
-            delay(500L)
-            viewModel.resetError()
+    LaunchedEffect(key1 = state.createdCode, block = {
+        if (state.createdCode){
+            onSuccess()
         }
     })
-
-
     Scaffold(
         contentWindowInsets =
         WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal),
@@ -100,15 +97,11 @@ fun InputCodeScreen(
                         modifier = Modifier
                             .size(10.dp)
                             .background(
-                                color = if (state.error) {
-                                    Color.Red
-                                } else {
-                                    state.inputCode
-                                        .getOrNull(it)
-                                        ?.let {
-                                            Color.Green
-                                        } ?: Color.Black
-                                },
+                                color = state.inputCode
+                                    .getOrNull(it)
+                                    ?.let {
+                                        Color.Green
+                                    } ?: Color.Black,
                                 CircleShape
                             ),
                     )
@@ -127,7 +120,7 @@ fun InputCodeScreen(
                         modifier = Modifier
                             .size(100.dp)
                             .clickable {
-                                viewModel.inputCode("$it", onSuccess)
+                                viewModel.inputCode("$it")
                             },
                         contentAlignment = Alignment.Center
                     ){

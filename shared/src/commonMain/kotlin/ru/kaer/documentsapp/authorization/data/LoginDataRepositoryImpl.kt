@@ -2,6 +2,7 @@ package ru.kaer.documentsapp.authorization.data
 
 import ru.kaer.documentsapp.DocumentDatabase
 import ru.kaer.documentsapp.shared.model.Code
+import ru.kaer.documentsapp.shared.model.LoginType
 
 class LoginDataRepositoryImpl(
     database: DocumentDatabase
@@ -33,4 +34,12 @@ class LoginDataRepositoryImpl(
 
     override fun isUserAuthorized(): Boolean =
         tokenTable.isUserAuthorized().executeAsOneOrNull() != null
+
+    override fun registration() {
+        tokenTable.setAuthorized("123", "123")
+    }
+
+    override fun createCode(code: String) {
+        loginCode = Code(code, LoginType.CODE)
+    }
 }

@@ -1,5 +1,6 @@
 package ru.kaer.documentsapp.authorization.ui
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -19,16 +20,14 @@ fun AuthorizationFlow(
     LaunchedEffect(key1 = state, block = {
         when(state.isAuthorizedInApp){
             true -> navController.navigate(Screen.InputCode.name){
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
+                popUpTo(Screen.SplashScreen.name) {
                     inclusive = true
                 }
                 launchSingleTop = true
                 restoreState = true
             }
             false -> navController.navigate(Screen.Registration.name){
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
+                popUpTo(Screen.SplashScreen.name) {
                     inclusive = true
                 }
                 launchSingleTop = true
@@ -44,11 +43,46 @@ fun AuthorizationFlow(
         }
 
         composable(Screen.InputCode.name){
-            InputCodeScreen()
+            InputCodeScreen{
+                navController.navigate(Screen.Zone.name){
+                    popUpTo(Screen.InputCode.name) {
+                        saveState = true
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
         }
 
         composable(Screen.Registration.name){
-            RegistrationScreen()
+            RegistrationScreen{
+                navController.navigate(Screen.CreateInputCode.name){
+                    popUpTo(Screen.Registration.name) {
+                        saveState = true
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+        }
+
+        composable(Screen.CreateInputCode.name){
+            CreateInputCodeScreen(){
+                navController.navigate(Screen.Zone.name){
+                    popUpTo(Screen.CreateInputCode.name) {
+                        saveState = true
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+        }
+
+        composable(Screen.Zone.name){
+            Text("qweqwjeljqwlej")
         }
     }
 }

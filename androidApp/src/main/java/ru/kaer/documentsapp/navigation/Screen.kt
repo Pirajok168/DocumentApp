@@ -4,5 +4,7 @@ enum class Screen {
     InputLoginCode,
     SplashScreen,
     InputCode,
-    Registration
+    Registration,
+    CreateInputCode,
+    Zone
 }

@@ -8,6 +8,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.kaer.DocumentsApp
+import ru.kaer.documentsapp.authorization.domain.LoginDataInteractor
+import ru.kaer.documentsapp.authorization.domain.di.dialogChatModuleNew
 
 data class RegistrationScreenState(
     val fio: String = "",
@@ -18,18 +21,23 @@ data class RegistrationScreenState(
     val error: Boolean = false
 )
 
-class RegistrationScreenViewModel: ViewModel() {
+class RegistrationScreenViewModel(
+    private val loginDataInteractor: LoginDataInteractor = DocumentsApp.dialogChatModuleNew.loginDataInteractor
+): ViewModel() {
     var authState by mutableStateOf(RegistrationScreenState())
         private set
 
-    fun onRegistration(){
+    fun onRegistration(onSuccess: () -> Unit){
         if (authState.password != authState.repeatPassword ){
             updateWithMainFlow {
                 authState = authState.copy(error = true)
             }
             return
         }
+        loginDataInteractor.registration()
+        onSuccess()
     }
+
     fun inputRepeatPassword(value: String){
         updateWithMainFlow {
             authState = authState.copy(repeatPassword = value)
