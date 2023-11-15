@@ -1,12 +1,11 @@
 package ru.kaer.documentsapp.authorizedZone.screen
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -28,45 +27,25 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.kaer.documentsapp.android.R
-import ru.kaer.documentsapp.authorizedZone.component.ReferenceCard
+import ru.kaer.documentsapp.authorizedZone.component.NoticeCard
 
 @Composable
-fun MainScreen() {
+fun NotificationScreen() {
     val list = listOf(
-        ReferenceCard(
-            title = "Для студентов",
-            R.drawable.student,
-            listOf(
-                "Архивная справка",
-                    "Справка о периоде обучения",
-                    "Справка о прохождении ВЦ"
-            )
-        ),
-        ReferenceCard(
-            title = "Для сотрудников",
-            R.drawable.employee,
-            listOf(
-                "Справка в соц.защиту",
-                "Справка 2-НДФЛ",
-                "Справка о стаже",
-            )
-        ),
-        ReferenceCard(
-            title = "Для выпускников",
-            R.drawable.student_all,
-            listOf(
-                "Архивная справка",
-                "Справка о периоде обучения",
-                "Справка о прохождении ВЦ"
-            )
-        )
+        NoticeCard("Выписка по оценкам", "Справка готова"),
+
+        NoticeCard("Справка о доходах", "Справка готова"),
+
+        NoticeCard("Справка в ПФР", "Проблема оформления"),
     )
     Scaffold(
         containerColor = Color(0xFFCEEDDB),
     ) {
-        Column(modifier = Modifier
-            .padding(it)
-            .padding(horizontal = 16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .padding(horizontal = 16.dp)
+        ) {
             Spacer(modifier = Modifier.statusBarsPadding())
             TextField(
                 value = "",
@@ -90,11 +69,12 @@ fun MainScreen() {
                 }
             )
             Spacer(modifier = Modifier.statusBarsPadding())
+
+
             list.forEach {
-                CardReference(
+                NoticeCardComp(
                     title = it.title,
-                    icon = it.icon,
-                    description = it.descriptions.joinToString("\n")
+                    status = it.status,
                 )
                 Spacer(modifier = Modifier.size(15.dp))
             }
@@ -102,45 +82,48 @@ fun MainScreen() {
     }
 }
 
-
 @Composable
-fun CardReference(
-    title: String,
-    @DrawableRes icon: Int,
-    description: String
-) {
+private fun NoticeCardComp(title: String, status: String){
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = Color.White),
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                modifier = Modifier.size(80.dp)
-            )
-            Spacer(modifier = Modifier.size(10.dp))
-            Column {
-                Text(
-                    text = title,
-                    fontSize = 16.sp
-                )
-                Spacer(modifier = Modifier.size(6.dp))
+            Box(modifier = Modifier.fillMaxWidth()){
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    Text(
+                        text = title,
+                        fontSize = 16.sp
+                    )
+                    Spacer(modifier = Modifier.size(4.dp))
+                    Text(
+                        text = status,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Light,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                Box(modifier = Modifier.matchParentSize().padding(8.dp), contentAlignment = Alignment.CenterEnd){
+                    Icon(
+                        painter = painterResource(id = R.drawable.chevron_right),
+                        contentDescription = "",
+                        tint = Color.Black
+                    )
+                }
 
-                Text(
-                    text = description,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Light,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
             }
+
+
         }
+
     }
 }
-        

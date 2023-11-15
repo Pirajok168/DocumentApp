@@ -30,6 +30,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ru.kaer.documentsapp.android.R
 import ru.kaer.documentsapp.authorizedZone.screen.MainScreen
+import ru.kaer.documentsapp.authorizedZone.screen.NotificationScreen
 import ru.kaer.documentsapp.component.TabBarItem
 import ru.kaer.documentsapp.navigation.Screen
 
@@ -104,7 +105,7 @@ fun AuthorizedZone() {
                 MainScreen()
             }
             composable(Screen.Notice.name){
-                Text(text = "Notice", color = Color.White)
+                NotificationScreen()
             }
             composable(Screen.Profile.name){
                 Text(text = "Profile", color = Color.White)
