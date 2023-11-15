@@ -29,6 +29,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ru.kaer.documentsapp.android.R
+import ru.kaer.documentsapp.authorizedZone.screen.MainScreen
 import ru.kaer.documentsapp.component.TabBarItem
 import ru.kaer.documentsapp.navigation.Screen
 
@@ -60,7 +61,9 @@ fun AuthorizedZone() {
             WindowInsetsSides.Horizontal
         ),
         bottomBar = {
-            BottomNavigation() {
+            BottomNavigation(
+                backgroundColor = Color.White
+            ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
                 items.forEach { screen ->
@@ -98,7 +101,7 @@ fun AuthorizedZone() {
             modifier = Modifier.padding(it)
         ) {
             composable(Screen.Main.name){
-                Text(text = "MAIN", color = Color.White)
+                MainScreen()
             }
             composable(Screen.Notice.name){
                 Text(text = "Notice", color = Color.White)
