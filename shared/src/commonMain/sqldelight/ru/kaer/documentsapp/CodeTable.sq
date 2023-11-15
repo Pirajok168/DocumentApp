@@ -1,0 +1,14 @@
+import ru.kaer.documentsapp.shared.model.LoginType;
+
+CREATE TABLE CodeTable (
+    code Text NOT NULL,
+    loginType TEXT AS LoginType
+);
+
+
+getCode:
+     SELECT * FROM CodeTable;
+
+
+setCode:
+    INSERT OR REPLACE INTO CodeTable (code, loginType) VALUES (?,?);

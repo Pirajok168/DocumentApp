@@ -1,0 +1,11 @@
+CREATE TABLE TokenTable (
+    token TEXT,
+    refreshToken TEXT
+);
+
+isUserAuthorized:
+    SELECT * FROM TokenTable;
+
+
+setAuthorized:
+    INSERT OR REPLACE INTO TokenTable(token, refreshToken) VALUES (?,?);
