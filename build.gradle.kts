@@ -8,18 +8,7 @@ plugins {
 
 
 }
-buildscript {
-    val sqlDelightVersion = "1.5.3"
-    dependencies{
-        classpath ("org.jetbrains.kotlin:kotlin-serialization:1.9.10")
 
-        //classpath("app.cash.sqldelight:sqlite-driver:2.0.0")
-
-
-        classpath("com.android.tools.build:gradle:8.1.2")
-        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
-    }
-}
 
 allprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

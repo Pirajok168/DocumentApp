@@ -1,12 +1,18 @@
 package ru.kaer.documentsapp.authorization.data
 
+import io.ktor.client.HttpClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import ru.kaer.documentsapp.AppplicTable
 import ru.kaer.documentsapp.DocumentDatabase
+import ru.kaer.documentsapp.authorization.api.HttpClientMobile
 import ru.kaer.documentsapp.shared.model.Code
 import ru.kaer.documentsapp.shared.model.LoginType
 
 class LoginDataRepositoryImpl(
-    database: DocumentDatabase
+    database: DocumentDatabase,
+    private val api: HttpClientMobile,
+    private val scope: CoroutineScope
 ): LoginDataRepository {
     private val dbQuery = database.codeTableQueries
     private val tokenTable = database.tokenTableQueries
@@ -43,7 +49,11 @@ class LoginDataRepositoryImpl(
 
     override fun registration(fio: String) {
         fioTable.setFio(fio)
-        tokenTable.setAuthorized("123", "123")
+        scope.launch {
+            val token = api.registration()
+            tokenTable.setAuthorized(token.token, token.refreshToken)
+        }
+
     }
 
     override fun createCode(code: String) {
@@ -57,10 +67,17 @@ class LoginDataRepositoryImpl(
         grupa: String,
         title: String
     ) {
-        appTable.setApp(fio, kafedra, kurs, grupa, "Справка готова", title)
+        scope.launch {
+            api.sendDocument()
+            appTable.setApp(fio, kafedra, kurs, grupa, "Справка готова", title)
+        }
+
     }
 
-    override fun getApplications(): List<AppplicTable> =
-        appTable.getApp().executeAsList()
+    override fun getApplications(): List<AppplicTable> {
+        scope.launch {
+            return@launch api.getNotification()
+        }
+    }
 
 }

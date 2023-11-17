@@ -16,7 +16,7 @@ import kotlin.native.concurrent.ThreadLocal
 internal val DiAuthDomain = DI.Module("DiAuthDomain"){
     bind<LoginDataRepository>() with singleton {
         LoginDataRepositoryImpl(
-            database = instance<IDocumentDatabase>().getDataBase()
+            database = instance<IDocumentDatabase>().getDataBase(), instance(), instance()
         )
     }
 
